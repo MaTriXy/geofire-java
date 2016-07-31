@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.firebase</groupId>
   <artifactId>geofire</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <version>2.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
   <name>geofire</name>
   <description>GeoFire is an open-source library for Android/Java that allows you to store and query a set of keys based on their geographic location.</description>
   <organization>
@@ -16,12 +18,24 @@
     <connection>scm:git:git@github.com:firebase/geofire-java.git</connection>
     <developerConnection>scm:git:git@github.com:firebase/geofire-java.git</developerConnection>
     <url>https://github.com/firebase/geofire-java</url>
+    <tag>HEAD</tag>
   </scm>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
+
+  <developers>
+    <developer>
+      <id>samtstern</id>
+      <name>Sam Stern</name>
+      <email>samstern@google.com</email>
+      <organization>Firebase</organization>
+      <organizationUrl>https://firebase.google.com</organizationUrl>
+      <roles>
+        <role>Project-Administrator</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+  </developers>
+
   <licenses>
     <license>
       <name>MIT</name>
@@ -31,15 +45,39 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <modules>
+      <module>android</module>
+      <module>java</module>
+  </modules>
+
+  <distributionManagement>
+    <repository>
+        <id>geofire</id>
+        <url>https://api.bintray.com/maven/firebase/geofire/geofire</url>
+    </repository>
+  </distributionManagement>
+
   <build>
+    <!--
+       Add -Dbuildtime.output.log=true to profile maven task times.
+    -->
+    <extensions>
+        <extension>
+            <groupId>co.leantechniques</groupId>
+            <artifactId>maven-buildtime-extension</artifactId>
+            <version>2.0.3</version>
+        </extension>
+    </extensions>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -76,23 +114,8 @@
       </plugin>
     </plugins>
   </build>
+
   <dependencies>
-    <dependency>
-      <groupId>com.firebase</groupId>
-      <!-- Use the plain java artifact here so there are no Android specific API
-           calls -->
-      <artifactId>firebase-client-jvm</artifactId>
-      <version>[2.0.0,)</version>
-      <!-- Since there are two artifacts (jvm and android) we only want to make
-           sure it compiles agains the API and then let people include the
-           version they want -->
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
+    <!-- Dependencies defined in child POMs -->
   </dependencies>
 </project>
