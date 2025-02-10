@@ -4,7 +4,7 @@
 
   <groupId>com.firebase</groupId>
   <artifactId>geofire</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>geofire</name>
@@ -47,8 +47,9 @@
   </properties>
 
   <modules>
-      <module>android</module>
+      <module>common</module>
       <module>java</module>
+      <module>testing</module>
   </modules>
 
   <distributionManagement>
@@ -80,6 +81,7 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -97,6 +99,7 @@
           <show>public</show>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -112,6 +115,34 @@
         <configuration>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+      </plugin>
+
+      <!-- Runs unit tests (class name must end with Test) -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+      </plugin>
+
+      <!-- Runs integration tests (class name must end with IT) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.20.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
